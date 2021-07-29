@@ -38,3 +38,4 @@ You can then run the script with `npm start` or `yarn start`
 # ToDo
 - [ ] Add a route to request the saved data
 - [ ] Add a route to request the rain sum of the past three days
+- [ ] Dockerize the script
