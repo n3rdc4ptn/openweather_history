@@ -34,14 +34,16 @@ module.exports = async function () {
   return await Promise.all(locations.map(async ({ name, longitude, latitude, language, units }) => {
     const today = await requestData(0, latitude, longitude, language, units)
     const yesterday = await requestData(1, latitude, longitude, language, units)
+    const twoDaysAgo = await requestData(2, latitude, longitude, language, units)
     const threeDaysAgo = await requestData(3, latitude, longitude, language, units)
     // const fourDaysAgo = await requestData(4, latitude, longitude, language, units)
     // const fiveDaysAgo = await requestData(5, latitude, longitude, language, units)
 
-    // merge today, yesterday and three days ago hourly data
+    // merge today, yesterday, twoDaysAgo, and three days ago hourly data
     const hourly = [].concat(
       today.hourly,
       yesterday.hourly,
+      twoDaysAgo.hourly,
       threeDaysAgo.hourly,
       // fourDaysAgo.hourly,
       // fiveDaysAgo.hourly

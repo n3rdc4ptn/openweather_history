@@ -61,7 +61,6 @@ module.exports.writeDataToInfluxDB = (data) => {
         .floatField('speed', entry.wind_speed)
         .floatField('degree', entry.wind_deg)
         .stringField('speed_unit', units == 'metric' ? 'metres_per_second' : units == 'imperial' ? 'miles_per_hour' : 'metres_per_second')
-        .stringField('gust_unit', units == 'metric' ? 'metres_per_second' : units == 'imperial' ? 'miles_per_hour' : 'metres_per_second')
       
       const weatherPoint = new Point('weather')
       weatherPoint
@@ -103,5 +102,37 @@ module.exports.writeDataToInfluxDB = (data) => {
   })
   .catch((err) => {
     console.log(err)
+  })
+}
+
+
+module.exports.readDataFromFluxDB = async function(location, range, measurement, field) {
+  const readApi = client.getQueryApi(ORG)
+  const query = `
+  from(bucket: "${BUCKET}")
+    |> range(start: -${range}, stop: now())
+    |> filter(fn: (r) => r._measurement == "${measurement}")
+    |> filter(fn: (r) => r._field == "${field}")
+    |> filter(fn: (r) => r.location == "${location}")
+    `;
+  
+  return new Promise((resolve, reject) => {
+    const result = []
+    readApi.queryRows(query, {
+      next(row, tableMeta) {
+        const o = tableMeta.toObject(row);
+        result.push({
+          dt: o._time,
+          field: o._field,
+          value: o._value,
+        })
+      },
+      error(error) {
+        reject(error)
+      },
+      complete() {
+        resolve(result)
+      }
+    })
   })
 }
