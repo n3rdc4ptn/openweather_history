@@ -67,9 +67,9 @@ module.exports.writeDataToInfluxDB = (data) => {
         .stringField('main', entry.weather)
         .stringField('description', entry.weather_desc)
       
-      const rainPoint = new Point('rain')
+      const rainPoint = new Point('rain_float')
       rainPoint
-        .intField('mm', entry.rain_1h)
+        .floatField('mm', entry.rain_1h)
       
       let points = [
         tempPoint,

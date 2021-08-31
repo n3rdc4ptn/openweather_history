@@ -40,7 +40,7 @@ app.get("/rain", async (req, res) => {
 
 
 
-  const data = await readDataFromFluxDB(location, range, 'rain', 'mm');
+  const data = await readDataFromFluxDB(location, range, 'rain_float', 'mm');
 
   switch (type) {
     case 'sum':
