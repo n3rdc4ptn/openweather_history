@@ -63,9 +63,7 @@ app.get("/rain", async (req, res) => {
 async function hourlyFetch() {
   const response = await fetch(`http://localhost:${process.env.PORT}/fetch`)
 
-  console.log("hourly fetch request:")
-  console.log(response.text)
-  console.log("=====================")
+  console.log(`hourly fetch request: ${response.status == 200 ? 'success' : 'failed'}`)
 }
 
 // Start fetch interval every hour
