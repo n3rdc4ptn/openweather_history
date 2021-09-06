@@ -1,3 +1,5 @@
+const fetch = require("node-fetch");
+
 const express = require('express');
 // Load dotenv config
 require('dotenv').config();
@@ -58,6 +60,19 @@ app.get("/rain", async (req, res) => {
   }
 })
 
+async function hourlyFetch() {
+  const response = await fetch(`http://localhost:${process.env.PORT}/fetch`)
+
+  console.log("hourly fetch request:")
+  console.log(response.text)
+  console.log("=====================")
+}
+
+// Start fetch interval every hour
+setInterval(hourlyFetch, 1000 * 60 * 60);
+
 app.listen(process.env.PORT, () => {
   console.log("Server running on port " + process.env.PORT);
+
+  hourlyFetch();
 })
