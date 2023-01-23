@@ -1,0 +1,18 @@
+{
+  "name": "openweather_history_v2",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@google-cloud/functions-framework": "^3.1.0",
+    "@influxdata/influxdb-client": "^1.24.0",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "node-fetch": "2"
+  },
+  "scripts": {
+    "start": "npx functions-framework --target=get-rain-forecast",
+    "start-standalone-get-rain": "node standalone-get-rain.js",
+    "start-fetch": "npx functions-framework --target=fetch-data"
+  }
+}

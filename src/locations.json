@@ -1,0 +1,15 @@
+[
+  {
+    "name": "Coswig",
+    "latitude": "51.12",
+    "longitude": "13.57",
+    "language": "de",
+    "units": "metric"
+  },
+  {
+    "name": "Karlshorst",
+    "latitude": "52.47",
+    "longitude": "13.53",
+    "units": "metric"
+  }
+]
